@@ -3,7 +3,7 @@
 #include "constants.h"
 #include "gdt.h"
 #include "paging.h"
-
+#include "gfx.h"
 #include <stdint.h>
 
 int main(multiboot_info_t *mbi, unsigned long magic)
@@ -19,16 +19,13 @@ int main(multiboot_info_t *mbi, unsigned long magic)
 
     paging_init();
 
-    // Create a pointer to the beginning of the buffer array
-    uint32_t *p = mbi->framebuffer_addr;
+    init_gfx(mbi);
 
-    // Paging is working correctly
-    // You can replace this with any action you deem appropriate
-    // Set all the values in the buffer to the specified color
-    for (int i = 0; i < mbi->framebuffer_width * mbi->framebuffer_height; i++)
-    {
-        *p++ = COLOR_BLUE;
-    }
+    // Clear the screen
+    gfx_clear_buffer(COLOR_WHITE);
 
+    // Draw a string
+    gfxDrawString(100, 100, "Hello, World!", COLOR_BLUE);
+    gfx_swap_buffer();
     return 0;
 }

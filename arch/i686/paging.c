@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "heap.h"
 #include "paging.h"
+#include "memory.h"
 
 uint32_t *current_directory;
 
@@ -19,23 +20,6 @@ uint32_t *current_directory;
 //     printf("EIP: 0x%x\n", regs->eip);
 //     panic("Page fault!\n");
 // }
-
-// MOVE ME SOME POINT TO ANOTHER FILE
-void *memset(void *buf, int val, size_t sz)
-{
-    for (size_t i = 0; i < sz; ++i)
-    {
-        ((uint8_t *)buf)[i] = (uint8_t)val;
-    }
-    return buf;
-}
-
-void *memcpy(void *dest, void *src, size_t sz)
-{
-    while (sz--)
-        *(char *)dest++ = *(char *)src++;
-    return dest;
-}
 
 void paging_switch_directory(uint32_t *dir)
 {
