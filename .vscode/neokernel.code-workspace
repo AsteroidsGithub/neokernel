@@ -1,0 +1,42 @@
+{
+  "folders": [
+    {
+      "path": ".."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/*.o": true
+    }
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug",
+        "request": "attach",
+        "type": "gdb",
+        "preLaunchTask": "(Debug) Build the kernel and run qemu",
+        "executable": "${workspaceFolder}/build/neo.elf",
+        "target": ":1234",
+        "remote": true,
+        "cwd": "${workspaceRoot}",
+        "gdbpath": "/usr/bin/gdb",
+        "valuesFormatting": "parseText"
+      }
+    ]
+  },
+  "tasks": {
+    "tasks": [
+      {
+        "type": "shell",
+        "label": "(Debug) Build the kernel and run qemu",
+        "command": "make debug",
+        "options": {
+          "cwd": "${workspaceRoot}"
+        }
+      }
+    ],
+    "version": "2.0.0"
+  }
+}
