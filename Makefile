@@ -1,11 +1,11 @@
 TARGET=i686-elf
 PROJDIRS := arch boot kernel lib
 DESTDIR = build
-INCLUDES = -Ikernel -Iboot -Iarch/i686 -Iarch/i686/memory
+INCLUDES = -Iinclude/arch/i686 -Iinclude/kernel
 
 CC = $(HOME)/opt/cross/bin/$(TARGET)
 
-VERSIONFILE = kernel/version.h
+VERSIONFILE = include/kernel/version.h
 CFILES := $(shell find $(PROJDIRS) -type f -name "*.c")
 ASMFILES := $(shell find $(PROJDIRS) -type f -name "*.s")
 HDRFILES := $(shell find $(PROJDIRS) -type f -name "*.h")
