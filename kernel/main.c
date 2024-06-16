@@ -1,6 +1,7 @@
 #include "multiboot.h"
 #include "io.h"
 #include "constants.h"
+#include "gdt.h"
 
 #include <stdint.h>
 
@@ -12,6 +13,7 @@ int main(multiboot_info_t *mbi, unsigned long magic)
     // Check if A20 line is enabled
     int a = check_a20();
 
+    init_gdt();
     // Create a pointer to the beginning of the buffer array
     uint32_t *p = mbi->framebuffer_addr;
 

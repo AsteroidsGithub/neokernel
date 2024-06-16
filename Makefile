@@ -25,7 +25,7 @@ CFLAGS = -std=gnu99 -ffreestanding -fno-stack-protector -nostdlib $(WARNINGS) -m
 LDFLAGS = -ffreestanding -O2 -nostdlib -lgcc
 ASFLAGS = -march=i686 --32
 
-.PHONY: all clean run iso
+.PHONY: all clean run iso debug
 .SUFFIXES: .o .c .s
 
 all: neo.elf
@@ -59,9 +59,10 @@ format:
 
 clean:
 	@echo "Cleaning build directory..."
-	@rm -f $(OBJ) $(DEPFILES) arial.* *.img *.iso
-	@rm -f $(VERSIONFILE)
-	@rm -rf $(DESTDIR)
+	@find . -type f -name '*.o' -exec rm {} \;
+	@find . -type f -name '*.d' -exec rm {} \;
+	@rm -f neo.elf
+	@rm -rf build
 
 run: clean iso
 	qemu-system-i386 -serial stdio -cdrom build/arial.iso -vga std -d int -no-reboot
